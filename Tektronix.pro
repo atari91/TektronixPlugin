@@ -31,7 +31,7 @@ OBJECTS_DIR=$$builddir
 DESTDIR=$$builddir
 
 INCLUDEPATH += C:/libraries/boost_1_59_0
-INCLUDEPATH += $$PWD/../Tektronix/include
+INCLUDEPATH += $$PWD/../TektronixPlugin/include
 
 DEFINES +=  TektronixPlugin_LIBRARY
 DEFINES +=  WIN32_LEAN_AND_MEAN
@@ -60,7 +60,7 @@ HEADERS += \
             Osci/TektronixClass.h
 
 
-LIBS += -LC:/cpp/GitHub/Tektronix/Lib_x64/msc -lvisa64
+LIBS += -LC:/cpp/GitHub/TektronixPlugin/Lib_x64/msc -lvisa64
 
 LIBS += -LC:/libraries/boost_1_59_0/boost-lib/lib -llibboost_system-mgw73-mt-1_59
 LIBS += -LC:/libraries/boost_1_59_0/boost-lib/lib -llibboost_thread-mgw73-mt-1_59

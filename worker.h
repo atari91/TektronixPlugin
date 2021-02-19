@@ -103,5 +103,4 @@ private:
 
 };
 
-#endif // WorkClass
 

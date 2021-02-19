@@ -18,7 +18,7 @@
 **                                                                           **
 *******************************************************************************
 *******************************************************************************/
-
+#pragma once
 #include <string>
 #include <sstream>
 #include <vector>
@@ -31,7 +31,7 @@
 #include <boost\shared_ptr.hpp>
 #include <boost\variant.hpp>
 
-#include "visa.h"
+#include "include/visa.h"
 
 #include <QString>
 #include <QStringList>
