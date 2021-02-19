@@ -74,11 +74,6 @@ void WorkClass::process()
     this->ThreadRunning.lock();
     Messenger.Info( DeviceName + " loaded.");
 
-
-    CreateSymbols Symbols(this, DeviceName, m_data);
-    Symbols.PublishParameters();
-    uint32_t counter = 0;
-
     while(!XmlRead && !Abort())
     {
         QCoreApplication::processEvents();
@@ -90,11 +85,11 @@ void WorkClass::process()
         int status = this->Osci.Connect(this->IP);
         if(status)
         {
-           GetMessenger()->Error("Could not connect to Osci. Visa Error Code: " + QString::number(status));
+           GetMessenger()->Error("Could not connect to Scope. Visa Error Code: " + QString::number(status));
            this->Error = 1;
         }
         else
-            GetMessenger()->Info("Osci Connected");
+            GetMessenger()->Info("Scope Connected");
     }
 
 
@@ -185,7 +180,9 @@ void WorkClass::process()
             ChannelReader.ReadChannel(2);
             ChannelReader.ReadChannel(3);
             ChannelReader.ReadChannel(4);
-
+            uint32_t tmp = m_data[DeviceName + "::Aquisition::Counter"].GetUInt32_tData();
+            tmp++;
+            m_data[DeviceName + "::Aquisition::Counter"].SetDataKeepType(tmp);
             ReadStreams = 0;
 
         }
@@ -201,7 +198,7 @@ void WorkClass::process()
     }
 
     this->Osci.CloseConnection();
-    GetMessenger()->Info("Osci Connection Closed");
+    GetMessenger()->Info("Scope Connection Closed");
 
     if(Error)
         emit MessageSender("CloseProject",objectName(), InterfaceData());
@@ -245,6 +242,7 @@ void WorkClass::MessageReceiver(const QString &Command, const QString &ID, Inter
     }
     else if(Command == "load")
     {
+        CreateSymbols Symbols(this, DeviceName, m_data);
         XmlReader reader(this,Messenger, DeviceName,StateIds, StateRequests, StateSetCommands);
         if(reader.read(Data.GetString()))
         {
@@ -253,6 +251,7 @@ void WorkClass::MessageReceiver(const QString &Command, const QString &ID, Inter
         }
         IP = reader.GetIP();
         XmlRead = true;
+        Symbols.PublishParameters();
     }
     else if(Command.compare("LoadCustomData")==0)
     {

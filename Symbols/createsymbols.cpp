@@ -24,6 +24,10 @@
 CreateSymbols::CreateSymbols(QObject* parent, QString DeviceName_, std::map<QString, DataStorage> &m_data_): QObject(parent), DeviceName(DeviceName_), m_data(m_data_)
 {
     connect(this,SIGNAL(MessageSender(const QString, const QString, InterfaceData)),parent,SLOT(MessageReceiver(const QString, const QString, InterfaceData)));
+    InterfaceData Data;
+    Data.SetData(0);
+    emit MessageSender("publish_start", DeviceName, Data);
+
 }
 
 void CreateSymbols::PublishVector(QString ID)
@@ -35,18 +39,36 @@ void CreateSymbols::PublishVector(QString ID)
     emit MessageSender("publish", ID,  _Data);
 }
 
+void CreateSymbols::PublishState(QString ID)
+{
+    InterfaceData _Data;
+    _Data.SetDataType("boolean");
+    _Data.SetType("State");
+    _Data.SetData(false);
+    emit MessageSender("publish", ID,  _Data);
+}
+
+void CreateSymbols::PublishInt(QString ID)
+{
+    InterfaceData _Data;
+    _Data.SetType("Data");
+    _Data.SetData((uint32_t) 0);
+    emit MessageSender("publish", ID,  _Data);
+}
 
 
 void CreateSymbols::PublishParameters()
 {
-    InterfaceData Data;
-    Data.SetData(0);
-    emit MessageSender("publish_start", DeviceName, Data);
+
+    PublishState(DeviceName + "::ReadChannels");
+    PublishInt(DeviceName + "::Aquisition::Counter");
 
     PublishVector(DeviceName + "::Buffered::C1");
     PublishVector(DeviceName + "::Buffered::C2");
     PublishVector(DeviceName + "::Buffered::C3");
     PublishVector(DeviceName + "::Buffered::C4");
 
+    InterfaceData Data;
+    Data.SetData(0);
     emit MessageSender("publish_finished", DeviceName, Data);
 }

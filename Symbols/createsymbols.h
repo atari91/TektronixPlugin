@@ -39,6 +39,8 @@ private:
     std::map<QString, DataStorage> &m_data;
 
     void PublishVector(QString ID);
+    void PublishState(QString ID);
+    void PublishInt(QString ID);
 
 
     void PublishGUISelection();
