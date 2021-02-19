@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LEDevice DevicePlugin = "C:/cpp/plugins/TektronixPlugind.dll" DeviceName = "TekOsci">
+	<Connection IP = "10.0.2.2"/>
+	<Visa>
+<!-- CHANNEL 1-->	
+	    <Connection  DataType="boolean">		
+			<ID> Channel::C1::State </ID>
+			<Command> SELect:CH1 </Command> 
+		</Connection>
+		 <Connection  DataType="string">		
+			<ID> Channel::C1::Label </ID>
+			<Command> CH1:LABel:NAMe </Command> 
+		</Connection>
+		 <Connection  DataType="double">		
+			<ID> Channel::C1::Scale </ID>
+			<Command> CH1:Scale </Command> 
+		</Connection>
+		<Connection  DataType="double">		
+			<ID> Channel::C1::Deskew </ID>
+			<Command> CH1:DESKew </Command> 
+		</Connection>
+		<Connection  DataType="double">		
+			<ID> Channel::C1::Attenuation </ID>
+			<Command> CH1:PROBEFunc:EXTAtten </Command> 
+		</Connection>
+		<Connection  DataType="double">		
+			<ID> Channel::C1::Offset </ID>
+			<Command> CH1:OFFSet </Command> 
+		</Connection>
+	    <Connection  DataType="double">		
+			<ID> Channel::C1::Position </ID>
+			<Command> CH1:POSition </Command> 
+		</Connection>
+		<Connection  DataType="GuiSelection">		
+			<ID> Channel::C1::Coupling </ID>
+			<Command> CH1:COUPling </Command> 
+			<Selection> AC</Selection>
+			<Selection> DC</Selection>
+			<Selection> DCREJECT</Selection>
+			<Selection> GND</Selection>
+		</Connection>
+		<Connection  DataType="GuiSelection">		
+			<ID> Channel::C1::Termination </ID>
+			<Command> CH1:Termination </Command> 
+			<Selection> 50</Selection>
+			<Selection> 1.0000E+6</Selection>
+		</Connection>
+<!-- CHANNEL 2-->
+	  	<Connection  DataType="boolean">		
+			<ID> Channel::C2::State </ID>
+			<Command> SELect:CH2 </Command> 
+		</Connection>
+		 <Connection  DataType="string">		
+			<ID> Channel::C2::Label </ID>
+			<Command> CH2:LABel:NAMe </Command> 
+		</Connection>
+		 <Connection  DataType="double">		
+			<ID> Channel::C2::Scale </ID>
+			<Command> CH2:Scale </Command> 
+		</Connection>
+		<Connection  DataType="double">		
+			<ID> Channel::C2::Deskew </ID>
+			<Command> CH2:DESKew </Command> 
+		</Connection>
+		<Connection  DataType="double">		
+			<ID> Channel::C2::Attenuation </ID>
+			<Command> CH2:PROBEFunc:EXTAtten </Command> 
+		</Connection>
+		<Connection  DataType="double">		
+			<ID> Channel::C2::Offset </ID>
+			<Command> CH2:OFFSet </Command> 
+		</Connection>
+	    <Connection  DataType="double">		
+			<ID> Channel::C2::Position </ID>
+			<Command> CH2:POSition </Command> 
+		</Connection>
+		<Connection  DataType="GuiSelection">		
+			<ID> Channel::C2::Coupling </ID>
+			<Command> CH2:COUPling </Command> 
+			<Selection> AC</Selection>
+			<Selection> DC</Selection>
+			<Selection> DCREJECT</Selection>
+			<Selection> GND</Selection>
+		</Connection>
+		<Connection  DataType="GuiSelection">		
+			<ID> Channel::C2::Termination </ID>
+			<Command> CH2:Termination </Command> 
+			<Selection> 50</Selection>
+			<Selection> 1.0000E+6</Selection>
+		</Connection>
+<!-- CHANNEL 3-->
+	  	<Connection  DataType="boolean">		
+			<ID> Channel::C3::State </ID>
+			<Command> SELect:CH3 </Command> 
+		</Connection>
+		 <Connection  DataType="string">		
+			<ID> Channel::C3::Label </ID>
+			<Command> CH3:LABel:NAMe </Command> 
+		</Connection>
+		 <Connection  DataType="double">		
+			<ID> Channel::C3::Scale </ID>
+			<Command> CH3:Scale </Command> 
+		</Connection>
+		<Connection  DataType="double">		
+			<ID> Channel::C3::Deskew </ID>
+			<Command> CH3:DESKew </Command> 
+		</Connection>
+		<Connection  DataType="double">		
+			<ID> Channel::C3::Attenuation </ID>
+			<Command> CH3:PROBEFunc:EXTAtten </Command> 
+		</Connection>
+		<Connection  DataType="double">		
+			<ID> Channel::C3::Offset </ID>
+			<Command> CH3:OFFSet </Command> 
+		</Connection>
+	    <Connection  DataType="double">		
+			<ID> Channel::C3::Position </ID>
+			<Command> CH3:POSition </Command> 
+		</Connection>
+		<Connection  DataType="GuiSelection">		
+			<ID> Channel::C3::Coupling </ID>
+			<Command> CH3:COUPling </Command> 
+			<Selection> AC</Selection>
+			<Selection> DC</Selection>
+			<Selection> DCREJECT</Selection>
+			<Selection> GND</Selection>
+		</Connection>
+		<Connection  DataType="GuiSelection">		
+			<ID> Channel::C3::Termination </ID>
+			<Command> CH3:Termination </Command> 
+			<Selection> 50</Selection>
+			<Selection> 1.0000E+6</Selection>
+		</Connection>
+<!-- CHANNEL 4-->
+	  	<Connection  DataType="boolean">		
+			<ID> Channel::C4::State </ID>
+			<Command> SELect:CH4 </Command> 
+		</Connection>
+		 <Connection  DataType="string">		
+			<ID> Channel::C4::Label </ID>
+			<Command> CH4:LABel:NAMe </Command> 
+		</Connection>
+		 <Connection  DataType="double">		
+			<ID> Channel::C4::Scale </ID>
+			<Command> CH4:Scale </Command> 
+		</Connection>
+		<Connection  DataType="double">		
+			<ID> Channel::C4::Deskew </ID>
+			<Command> CH4:DESKew </Command> 
+		</Connection>
+		<Connection  DataType="double">		
+			<ID> Channel::C4::Attenuation </ID>
+			<Command> CH4:PROBEFunc:EXTAtten </Command> 
+		</Connection>
+		<Connection  DataType="double">		
+			<ID> Channel::C4::Offset </ID>
+			<Command> CH4:OFFSet </Command> 
+		</Connection>
+	    <Connection  DataType="double">		
+			<ID> Channel::C4::Position </ID>
+			<Command> CH4:POSition </Command> 
+		</Connection>
+		<Connection  DataType="GuiSelection">		
+			<ID> Channel::C4::Coupling </ID>
+			<Command> CH4:COUPling </Command> 
+			<Selection> AC</Selection>
+			<Selection> DC</Selection>
+			<Selection> DCREJECT</Selection>
+			<Selection> GND</Selection>
+		</Connection>
+		<Connection  DataType="GuiSelection">		
+			<ID> Channel::C4::Termination </ID>
+			<Command> CH4:Termination </Command> 
+			<Selection> 50</Selection>
+			<Selection> 1.0000E+6</Selection>
+		</Connection>
+<!-- Trigger -->
+		<Connection  DataType="GuiSelection">		
+			<ID> Trigger::Mode </ID>
+			<Command> Trigger:A:Mode </Command> 
+			<Selection> AUTO</Selection>
+			<Selection> NORMAL</Selection>
+		</Connection>
+		<Connection  DataType="double">		
+			<ID> Trigger::Level </ID>
+			<Command> TRIGger:A:LEVel </Command> 
+		</Connection>
+		<Connection  DataType="GuiSelection">		
+			<ID> Trigger::Channel </ID>
+			<Command> TRIGger:A:EDGE:SOURce </Command> 
+			<Selection> CH1</Selection>
+			<Selection> CH2</Selection>
+			<Selection> CH3</Selection>
+			<Selection> CH4</Selection>
+			<Selection> LINE</Selection>
+			<Selection> AUXILIARY</Selection>			
+		</Connection>
+	    <Connection  DataType="GuiSelection">		
+			<ID> Trigger::Type </ID>
+			<Command> Trigger:A:Type </Command> 
+			<Selection> EDGE</Selection>			
+		</Connection>
+        <Connection  DataType="GuiSelection">		
+			<ID> Trigger::Slope </ID>
+			<Command> Trigger:A:EDGE:SLOpe </Command> 
+			<Selection> RISE</Selection>		
+			<Selection> FALL</Selection>		
+		</Connection>
+<!-- AQUISITION/ HORIZONTAL -->
+		 <Connection  DataType="double">		
+			<ID> Aquisition::TimeDiv </ID>
+			<Command> HORizontal:MODE:SCALe </Command> 
+		</Connection>
+		<Connection  DataType="int">		
+			<ID> Aquisition::MemorySize </ID>
+			<Command> HORizontal:RECordlength </Command> 
+		</Connection>
+		<Connection  DataType="double">		
+			<ID> Aquisition::SampleRate </ID>
+			<Command> HORizontal:MODE:SampleRate </Command> 
+		</Connection>		
+		<Connection  DataType="GuiSelection">		
+			<ID> Aquisition::Mode </ID>
+			<Command> HORizontal:MODE </Command> 
+			<Selection> AUTO</Selection>	
+			<Selection> CONSTANT</Selection>	
+			<Selection> MANUAL</Selection>	
+		</Connection>			
+		<Connection  DataType="double">		
+			<ID> Aquisition::Position </ID>
+			<Command> HORizontal:POSition </Command> 
+		</Connection>			
+		<Connection  DataType="boolean">		
+			<ID> Aquisition::State </ID>
+			<Command> ACQuire:STATE </Command> 
+		</Connection>	
+		<Connection  DataType="double" flags="r">		
+			<ID> Aquisition::Number </ID>
+			<Command> ACQuire:NUMACq </Command> 
+		</Connection>	
+	</Visa>
+</LEDevice>
+	
