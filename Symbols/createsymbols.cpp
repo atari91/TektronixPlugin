@@ -36,6 +36,7 @@ void CreateSymbols::PublishVector(QString ID)
     _Data.SetDataType("vector<double>");
     _Data.SetType("Data");
     _Data.SetData(DataPair());
+    m_data[ID] = _Data;
     emit MessageSender("publish", ID,  _Data);
 }
 
@@ -45,6 +46,7 @@ void CreateSymbols::PublishState(QString ID)
     _Data.SetDataType("boolean");
     _Data.SetType("State");
     _Data.SetData(false);
+    m_data[ID] = _Data;
     emit MessageSender("publish", ID,  _Data);
 }
 
@@ -53,6 +55,7 @@ void CreateSymbols::PublishInt(QString ID)
     InterfaceData _Data;
     _Data.SetType("Data");
     _Data.SetData((uint32_t) 0);
+    m_data[ID] = _Data;
     emit MessageSender("publish", ID,  _Data);
 }
 

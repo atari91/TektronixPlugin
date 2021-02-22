@@ -24,13 +24,13 @@
 #include <QFile>
 #include <QXmlStreamReader>
 #include "../Messenger/messengerclass.h"
+#include "DataType/datastorage.h"
 
 class XmlReader: public QObject
 {
    Q_OBJECT
 public:
-    XmlReader(QObject *parent ,MessengerClass & Messenger_, QString DeviceName_,    QStringList &StateIds,    QStringList &StateRequests,    QMap<QString, QString> &StateSetCommands);
-    bool read(QString path);
+    XmlReader(QObject *parent ,MessengerClass & Messenger_, std::map<QString, DataStorage> &m_data_, QString DeviceName_,    QStringList &StateIds,    QStringList &StateRequests,    QMap<QString, QString> &StateSetCommands);    bool read(QString path);
     QString errorString() { return QString();};
 
     QString GetIP(){return IP;};
@@ -60,7 +60,7 @@ private:
     QStringList& StateIds;
     QStringList& StateRequests;
     QMap<QString, QString> &StateSetCommands;
-
+    std::map<QString, DataStorage> &m_data;
 
 };
 

@@ -239,11 +239,15 @@ void WorkClass::MessageReceiver(const QString &Command, const QString &ID, Inter
 
     if(Command == "get")
     {
+        InterfaceData Dat = (this->m_data[ID]);
+        Dat.SetDataRaw(this->m_data[ID].GetData());
+        emit MessageSender("set", ID , Dat);
+
     }
     else if(Command == "load")
     {
         CreateSymbols Symbols(this, DeviceName, m_data);
-        XmlReader reader(this,Messenger, DeviceName,StateIds, StateRequests, StateSetCommands);
+        XmlReader reader(this,Messenger, m_data, DeviceName,StateIds, StateRequests, StateSetCommands);
         if(reader.read(Data.GetString()))
         {
             abort = true;
@@ -263,7 +267,6 @@ void WorkClass::MessageReceiver(const QString &Command, const QString &ID, Inter
     }
     else if(Command == "publish")
     {
-        this->m_data[ID] = Data;
         emit MessageSender(Command,ID,Data);
     }
     else if(Command.compare("set")==0)
