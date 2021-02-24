@@ -39,15 +39,79 @@ void ReadOsciChannel::ReadChannel(int Channel)
     {
         auto ID = DeviceName + "::Data::Source";
         this->Osci.write("DATA:SOURCE "+ ChanT,ID);
+        this->Osci.write("HEADer 1","");
         QStringList answer = this->Osci.readOutPre();
+        this->Osci.write("HEADer 0","");
 
-        int transferredNum = answer.at(6).toInt();
-        double XZero=answer.at(10).toDouble();
-        double Xincr=answer.at(9).toDouble();
-        double XOff =answer.at(11).toDouble();
-        double YZero=answer.at(15).toDouble();
-        double Ymult=answer.at(13).toDouble();
-        double Yoff =answer.at(14).toDouble();
+        std::map<QString, QString> AnswerMap;
+        for(auto itt : answer)
+        {
+            QStringList splitted = itt.split(" ");
+            if(splitted.size() == 2)
+                AnswerMap[splitted[0]] = splitted[1];
+        }
+
+        double XZero, YZero, Ymult, Xincr, Yoff;
+
+        if(AnswerMap.find("NR_PT") == AnswerMap.end())
+        {
+            messenger.Info("NR_PT is missing in answer of WFMOutpre?");
+            return;
+        }
+        int transferredNum = AnswerMap["NR_PT"].toInt();
+
+
+        if(AnswerMap.find(":WFMOUTPRE:XZERO") == AnswerMap.end() && AnswerMap.find("XZERO") == AnswerMap.end())
+        {
+            messenger.Info(":WFMOUTPRE:XZERO or XZERO is missing in answer of WFMOutpre?");
+            return;
+        }
+        if(AnswerMap.find(":WFMOUTPRE:XZERO") != AnswerMap.end())
+             XZero =AnswerMap[":WFMOUTPRE:XZERO"].toDouble();
+        else
+            XZero =AnswerMap["XZERO"].toDouble();
+
+
+        if(AnswerMap.find("XIN") == AnswerMap.end() && AnswerMap.find("XINCR") == AnswerMap.end())
+        {
+            messenger.Info("XIN of XINCR is missing in answer of WFMOutpre?");
+            return;
+        }
+        if(AnswerMap.find("XIN") != AnswerMap.end())
+             Xincr =AnswerMap["XIN"].toDouble();
+        else
+            Xincr =AnswerMap["XINCR"].toDouble();
+
+        if(AnswerMap.find("YOFF") == AnswerMap.end() && AnswerMap.find(":WFMOUTPRE:YOFF") == AnswerMap.end())
+        {
+            messenger.Info(":WFMOUTPRE:YOFF of YOFF is missing in answer of WFMOutpre?");
+            return;
+        }
+        if(AnswerMap.find("YOFF") != AnswerMap.end())
+             Yoff =AnswerMap["YOFF"].toDouble();
+        else
+             Yoff =AnswerMap[":WFMOUTPRE:YOFF"].toDouble();
+
+        if(AnswerMap.find("YMULT") == AnswerMap.end() && AnswerMap.find("YMU") == AnswerMap.end())
+        {
+            messenger.Info("YMU of YMULT is missing in answer of WFMOutpre?");
+            return;
+        }
+        if(AnswerMap.find("YMULT") != AnswerMap.end())
+             Ymult =AnswerMap["YMULT"].toDouble();
+        else
+             Ymult =AnswerMap["YMU"].toDouble();
+
+        if(AnswerMap.find("YZERO") == AnswerMap.end() && AnswerMap.find("YZE") == AnswerMap.end())
+        {
+            messenger.Info("YZERO of YZE is missing in answer of WFMOutpre?");
+            return;
+        }
+        if(AnswerMap.find("YZERO") != AnswerMap.end())
+             YZero =AnswerMap["YZERO"].toDouble();
+        else
+             YZero =AnswerMap["YZE"].toDouble();
+
 
         std::vector<unsigned char> buffer = this->Osci.readbin("CURVE?",(int)(2*transferredNum + 500));
         int header = QString(buffer[1]).toInt()+3; // information ueber anzahl gesendete bytes
@@ -65,8 +129,8 @@ void ReadOsciChannel::ReadChannel(int Channel)
         for(int i = fp ;i<lp && i < buffer.size();i=i+2)
         {
              int16_t tmp2 = *((int16_t*)&buffer[i]);
-             Y.push_back(YZero+Ymult*(tmp2-Yoff));
-             double tmp1 = XZero+Xincr*(((double)i)/2-XOff);
+             Y.push_back(YZero+Ymult*((double) tmp2-Yoff));
+             double tmp1 = XZero+Xincr*(((double)i)/2-Yoff);
              T.push_back(tmp1);
        }
        _Data.SetData(DataPair( boost::shared_ptr<std::vector<double>>(new std::vector<double>(T)), boost::shared_ptr<std::vector<double>>(new std::vector<double>(Y))));

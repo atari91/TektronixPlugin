@@ -50,8 +50,9 @@ public:
 
     QStringList ReadState(QStringList);
     void write(QString command, QString logMsg);
-    QStringList read(QString command, QString logMsg);
+    QStringList read(QString command, QString logMsg, bool &Error);
     std::vector<unsigned char> readbin(QString command, int size);
+    QStringList CheckStates(QStringList CommandList);
 
     int GetStatus() { return status;}
     QStringList readOutPre(void);

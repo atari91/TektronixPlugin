@@ -46,11 +46,12 @@ private:
     void readVisa();
     void readVisaConnection();
 
-    void ReadDouble(bool ReadOnly);
-    void ReadBoolean(bool ReadOnly);
-    void ReadGuiSelection(bool ReadOnly);
-    void ReadString(bool ReadOnly);
-    void ReadInt(bool ReadOnly);
+    void ReadDouble(bool ReadOnly, bool WriteOnly);
+    void ReadBoolean(bool ReadOnly, bool WriteOnly);
+    void ReadGuiSelection(bool ReadOnly, bool WriteOnly);
+    void ReadString(bool ReadOnly, bool WriteOnly);
+    void ReadInt(bool ReadOnly, bool WriteOnly);
+    void AddState(QString read_ID, QString read_Command,  InterfaceData data, bool ReadOnly, bool WriteOnly);
 
     QString DeviceName;
 

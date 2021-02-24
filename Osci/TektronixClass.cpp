@@ -67,10 +67,10 @@ int Tektronix::Calibrate()
     if (status < VI_SUCCESS) {
         std::cout << "Setting time out failed";
     }
-
+    bool Error = 0;
     QString command = "*CAL?";
     QString logMsg = "Calibrating oscilloscope";
-    read(command, logMsg);
+    read(command, logMsg, Error);
 
     std::cout << "Setting time out to 0.5 seconds";
     status = viSetAttribute(session, VI_ATTR_TMO_VALUE, 500);
@@ -108,7 +108,7 @@ Tektronix::~Tektronix()
 
 }
 
-QStringList Tektronix::read(QString command, QString logMsg)
+QStringList Tektronix::read(QString command, QString logMsg, bool &Error)
 {
     // creating log message for debugging
 
@@ -121,13 +121,14 @@ QStringList Tektronix::read(QString command, QString logMsg)
     }
 
 
-    unsigned char buffer[1024];
+    unsigned char buffer[1024*4];
     for (int i =0; i< sizeof(buffer); i++) buffer[i] = ' ';
 
     status = viRead(session, (ViPBuf)buffer, (ViUInt32)sizeof(buffer), &retCount);
     if (status < VI_SUCCESS) {
         qDebug()  << logMsg << "failed";
         qDebug()  << "VISA error code:" << status;
+        Error = 1;
     }
     QString Answer(QString::fromLocal8Bit((const char*) buffer,retCount));
     // remove some strange stuff at the end of buffer
@@ -135,6 +136,24 @@ QStringList Tektronix::read(QString command, QString logMsg)
     auto AnswerParts = Answer.simplified().split(";");
 
     return AnswerParts;
+}
+
+QStringList Tektronix::CheckStates(QStringList CommandList)
+{
+    QString  logMsg = "";
+    QStringList ErrorCommands;
+
+    for(auto itt : CommandList)
+    {
+        bool Error = 0;
+        QStringList Answers = read(itt,logMsg, Error);
+        if(Error)
+        {
+            ErrorCommands.push_back(itt);
+        }
+    }
+
+    return ErrorCommands;
 }
 
 QStringList Tektronix::ReadState(QStringList CommandList)
@@ -146,7 +165,8 @@ QStringList Tektronix::ReadState(QStringList CommandList)
     }
 
     QString  logMsg = "";
-    QStringList Answers = read(command,logMsg);
+    bool Error = 0;
+    QStringList Answers = read(command,logMsg, Error);
 
     if(Answers.size()>2)
     {

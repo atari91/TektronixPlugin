@@ -99,7 +99,7 @@ private:
 
     QString IP;
     Tektronix Osci;
-
+    double Last_ACQuire_STATE = 0;
 
 };
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LEDevice DevicePlugin = "TektronixPlugin.dll" DeviceName = "TekOsci">
-	<Connection IP = "10.0.2.2"/>
+	<Connection IP = "10.0.2.123"/>
 	<Visa>
 <!-- CHANNEL 1-->	
 	    <Connection  DataType="boolean">		
@@ -181,10 +181,10 @@
 			<Selection> AUTO</Selection>
 			<Selection> NORMAL</Selection>
 		</Connection>
-		<Connection  DataType="double">		
+		<!--<Connection  DataType="double">		
 			<ID> Trigger::Level </ID>
 			<Command> TRIGger:A:LEVel </Command> 
-		</Connection>
+		</Connection>-->
 		<Connection  DataType="GuiSelection">		
 			<ID> Trigger::Channel </ID>
 			<Command> TRIGger:A:EDGE:SOURce </Command> 
@@ -195,7 +195,7 @@
 			<Selection> LINE</Selection>
 			<Selection> AUXILIARY</Selection>			
 		</Connection>
-	    <Connection  DataType="GuiSelection">		
+	     <Connection  DataType="GuiSelection">		
 			<ID> Trigger::Type </ID>
 			<Command> Trigger:A:Type </Command> 
 			<Selection> EDGE</Selection>			
@@ -206,7 +206,7 @@
 			<Selection> RISE</Selection>		
 			<Selection> FALL</Selection>		
 		</Connection>
-<!-- AQUISITION/ HORIZONTAL -->
+<!-- AQUISITION/ HORIZONTAL 
 		 <Connection  DataType="double">		
 			<ID> Aquisition::TimeDiv </ID>
 			<Command> HORizontal:MODE:SCALe </Command> 
@@ -237,7 +237,7 @@
 		<Connection  DataType="double" flags="r">		
 			<ID> Aquisition::Number </ID>
 			<Command> ACQuire:NUMACq </Command> 
-		</Connection>	
+		</Connection>	-->
 	</Visa>
 </LEDevice>
 	

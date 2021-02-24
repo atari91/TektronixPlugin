@@ -98,12 +98,25 @@ void WorkClass::process()
     if(!Abort())  this->Osci.write("WFMOutpre:BYT_NR 2","");
     if(!Abort())  this->Osci.write("DATA:ENCDG RIBINARY","");
     if(!Abort()) this->Osci.write("DATA:STOP 2e9","");
+    if(!Abort()) this->Osci.write("HEADer 1","");
+
+
+
 
 
     ReadStreams = 0;
     ReadOsciChannel ChannelReader(DeviceName, Messenger, Osci, m_data);
 
     this->SymbolsPublished = true;
+
+    QStringList ErrorStates = this->Osci.CheckStates(StateRequests);
+    if(!Abort() && ErrorStates.size())
+    {
+        for(auto itt : ErrorStates)
+            Messenger.Error("Visa Command: " + itt + " not found!");
+        Error = true;
+    }
+
 
     // First Loop
     while(!Abort())
@@ -124,19 +137,8 @@ void WorkClass::process()
                 {
                     if(_data.GetDataRaw() != this->m_data[ID].GetDataRaw())
                     {
-                        this->m_data[ID].SetDataRaw(_data.GetDataRaw());
-                        if(_data.GetDataType().compare("GuiSelection")==0)
-                        {
-                            this->Osci.write(this->StateSetCommands[ID] + _data.GetGuiSelection().first ,ID);
-
-                        }
-                        else
-                        {
-                            this->Osci.write(this->StateSetCommands[ID] + _data.GetString(),ID);
-
-                        }
-                        this->m_data[ID].SetDataRaw(_data.GetDataRaw());
-                        this->MessageSender("set", ID, _data);
+                          this->Osci.write(this->StateSetCommands[ID] + _data.GetString(),ID);
+                          this->m_data[ID].SetDataTimeOut(_data.GetDataRaw(), ID, GetMessenger());
                     }
                 }
             }
@@ -170,19 +172,34 @@ void WorkClass::process()
         }
         else
         {
-            GetMessenger()->Error("Error in Message Commands, please check the LAdev file!");
+            //GetMessenger()->Error("Error in Message Commands, please check the LAdev file!");
+        }
+
+        QString ACQuire_STATE_ID = DeviceName + "::Aquisition::Number"; //Prüfen
+        if(this->m_data.find(ACQuire_STATE_ID) != m_data.end())
+        {
+            double ACQuire_STATE = m_data[ACQuire_STATE_ID].GetDouble();
+            if(Last_ACQuire_STATE == 0 &&  ACQuire_STATE == 1 )
+            {
+                ReadStreams = 1;
+            }
+            Last_ACQuire_STATE = ACQuire_STATE;
         }
 
 
         if(ReadStreams)
         {
-            ChannelReader.ReadChannel(1);
-            ChannelReader.ReadChannel(2);
-            ChannelReader.ReadChannel(3);
-            ChannelReader.ReadChannel(4);
-            uint32_t tmp = m_data[DeviceName + "::Aquisition::Counter"].GetUInt32_tData();
+            int Channel = 1;
+            while(m_data.find(DeviceName + "::Channel::C"+ QString::number(Channel) +"::State") != m_data.end())
+            {
+                ChannelReader.ReadChannel(Channel);
+                Channel++;
+            }
+            QString CounterID = DeviceName + "::ChannelRead::Counter";
+            uint32_t tmp = m_data[CounterID].GetUInt32_tData();
             tmp++;
-            m_data[DeviceName + "::Aquisition::Counter"].SetDataKeepType(tmp);
+            m_data[CounterID].SetDataKeepType(tmp);
+            this->MessageSender("set", CounterID,  m_data[CounterID]);
             ReadStreams = 0;
 
         }

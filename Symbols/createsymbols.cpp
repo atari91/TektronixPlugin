@@ -64,7 +64,7 @@ void CreateSymbols::PublishParameters()
 {
 
     PublishState(DeviceName + "::ReadChannels");
-    PublishInt(DeviceName + "::Aquisition::Counter");
+    PublishInt(DeviceName + "::ChannelRead::Counter");
 
     PublishVector(DeviceName + "::Buffered::C1");
     PublishVector(DeviceName + "::Buffered::C2");
