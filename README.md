@@ -15,7 +15,9 @@ The following libraries are necessary:
 
 1. install boost-libs 
    - Arch Linux: `pacman -S boost-libs`
-2. create build folder `mkdir build`
-3.  change folder to build: `cd build`
-4.  run qmake inside build: `qmake ../`
-5.  run make: `make`
+2. install ni-visa
+   - Arch Linux: `yay -S ni-visa` or 'yaourt -S ni-visa'
+3. create build folder `mkdir build`
+4.  change folder to build: `cd build`
+5.  run qmake inside build: `qmake ../`
+6.  run make: `make`

@@ -31,7 +31,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/variant.hpp>
 
-#include "include/visa.h"
+#include "visa.h"
 
 #include <QString>
 #include <QStringList>
