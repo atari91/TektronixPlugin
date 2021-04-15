@@ -30,7 +30,9 @@ QT             += widgets
 OBJECTS_DIR=$$builddir
 DESTDIR=$$builddir
 
-INCLUDEPATH += C:/libraries/boost_1_59_0
+win32: INCLUDEPATH += C:/libraries/boost_1_59_0
+unix: INCLUDEPATH += /usr/include
+
 INCLUDEPATH += $$PWD/../TektronixPlugin/include
 
 DEFINES +=  TektronixPlugin_LIBRARY

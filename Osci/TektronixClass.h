@@ -26,10 +26,10 @@
 #include <iostream>
 
 #include <map>
-#include <boost\any.hpp>
-#include <boost\thread.hpp>
-#include <boost\shared_ptr.hpp>
-#include <boost\variant.hpp>
+#include <boost/any.hpp>
+#include <boost/thread.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/variant.hpp>
 
 #include "include/visa.h"
 

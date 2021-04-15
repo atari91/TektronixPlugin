@@ -5,3 +5,5 @@
 /include/visa.h
 /include/visatype.h
 /Tektronix.pro.user
+
+build/**
